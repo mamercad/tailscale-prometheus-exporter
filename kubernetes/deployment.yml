@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale-exporter
+  namespace: tailscale
+  labels:
+    app.kubernetes.io/name: tailscale-exporter
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tailscale-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tailscale-exporter
+    spec:
+      containers:
+        - name: tailscale-prometheus-exporter
+          image: ghcr.io/mamercad/prometheus-tailscale-exporter:devel
+          imagePullPolicy: Always
+          env:
+            - name: tailscale_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-secret
+                  key: tailscale_API_KEY
+            - name: tailscale_PROFILE
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-secret
+                  key: tailscale_PROFILE
+            - name: EXPORTER_PORT
+              value: "8000"
+            - name: POLLING_INTERVAL
+              value: "60"
+          ports:
+            - containerPort: 8000
+              name: prom-metrics
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"

@@ -1,6 +1,6 @@
 # [Prometheus](https://prometheus.io) Exporter for [Tailscale](https://tailscale.com)
 
-[![docker-image](https://github.com/mamercad/prometheus-tailscale-exporter/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mamercad/prometheus-tailscale-exporter/actions/workflows/docker-image.yml)
+[![docker-image](https://github.com/mamercad/tailscale-prometheus-exporter/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mamercad/tailscale-prometheus-exporter/actions/workflows/docker-image.yml)
 
 [Prometheus](https://prometheus.io) metrics of your [Tailscale](https://tailscale.com) data.
 

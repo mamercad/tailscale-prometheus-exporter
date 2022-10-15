@@ -1,0 +1,17 @@
+[Unit]
+Description=Prometheus Exporter for Tailscale
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=nobody
+Group=nobody
+Environment=TAILSCALE_API_KEY=hunter2
+Environment=TAILSCALE_TAILNET=hunter2
+ExecStart=/usr/local/bin/prometheus_tailscale_exporter.py
+
+[Install]
+WantedBy=multi-user.target
